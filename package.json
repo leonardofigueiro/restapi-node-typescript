@@ -16,7 +16,7 @@
   "scripts": {
     "start": "ts-node-dev ./src/index.ts",
     "test": "jest", 
-    "production": "node ./build/index.js",
+    "production": "node ./build/src/index.js",
     "postinstall": "tsc"
   },
   "devDependencies": {
