@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.server = void 0;
 const express_1 = __importDefault(require("express"));
 const routes_1 = require("./routes");
-require("./shared/services/TranslationsYup.ts");
+require("./shared/services/TranslationsYup.js");
 const server = (0, express_1.default)();
 exports.server = server;
 server.use(express_1.default.json());
