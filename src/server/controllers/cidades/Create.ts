@@ -1,34 +1,20 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
+import { validation } from '../../shared/middlawares';
 
 interface ICidade {
   nome: string
 }
+export const createValitation = validation((getSchema) => ({
+  body: getSchema<ICidade>(yup.object().shape({
+    nome: yup.string().required().min(3)
+  })),
+}));
 
-const bodyValidation: yup.SchemaOf<ICidade> = yup.object().shape({
-  nome: yup.string().required().min(3)
-});
+export const create = async (req: Request<{}, {}, ICidade>, res: Response) => {
 
-export const create = async (req: Request<{}, {}, ICidade>, res:Response) => {
+  console.log(req.body);
 
-  const data: ICidade = req.body;
-  let validateData: ICidade | undefined = undefined;
-  try {
-    validateData = await bodyValidation.validate(data, {abortEarly:false});
-  } catch (error) {
-    const yupError = error as yup.ValidationError;
-    const validationErrors: Record<string, string> = {};
-
-    yupError.inner.forEach(error => {
-      if(error.path === undefined) return;
-      validationErrors[error.path] = error.message;
-    });
-
-
-    return res.status(StatusCodes.BAD_REQUEST).json({validationErrors});
-  }
-  console.log(validateData);
-
-  return res.send('Create');
+  return res.status(StatusCodes.CREATED).send('Não implementado');
 };

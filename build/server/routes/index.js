@@ -6,8 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 const express_1 = require("express");
 const http_status_codes_1 = __importDefault(require("http-status-codes"));
+const controllers_1 = require("./../controllers");
 const router = (0, express_1.Router)();
 exports.router = router;
 router.get('/', (req, res) => {
-    return res.status(http_status_codes_1.default.ACCEPTED).send('Olá mundo!');
+    return res.status(http_status_codes_1.default.ACCEPTED).send('API Rest funcionando.');
 });
+router.get('/cidades', controllers_1.CidadesController.getAllValitation, controllers_1.CidadesController.getAll);
+router.post('/cidades', controllers_1.CidadesController.createValitation, controllers_1.CidadesController.create);

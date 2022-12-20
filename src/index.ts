@@ -1,4 +1,4 @@
-import server from './server/Server';
+import {server} from './server/Server';
 import 'dotenv/config';
 
 const port = process.env.PORT || 3333;
