@@ -36,9 +36,6 @@ export default {
   // A list of reporter names that Jest uses when writing coverage reports
   coverageReporters: [
     'json',
-  //   "text",
-  //   "lcov",
-  //   "clover"
   ],
 
   // An object that configures minimum threshold enforcement for coverage results
@@ -157,8 +154,6 @@ export default {
   // The glob patterns Jest uses to detect test files
   testMatch: [
     '<rootDir>/tests/**/*.test.ts'
-  //   "**/__tests__/**/*.[jt]s?(x)",
-  //   "**/?(*.)+(spec|test).[tj]s?(x)"
   ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped

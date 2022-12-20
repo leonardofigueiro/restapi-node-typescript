@@ -32,17 +32,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.create = exports.createValitation = void 0;
+exports.Update = exports.updateValitation = void 0;
 const http_status_codes_1 = require("http-status-codes");
 const yup = __importStar(require("yup"));
 const middlawares_1 = require("../../shared/middlawares");
-exports.createValitation = (0, middlawares_1.validation)((getSchema) => ({
+exports.updateValitation = (0, middlawares_1.validation)((getSchema) => ({
+    params: getSchema(yup.object().shape({
+        id: yup.number().integer().required().moreThan(0)
+    })),
     body: getSchema(yup.object().shape({
         nome: yup.string().required().min(3)
-    })),
+    }))
 }));
-const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const Update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.params);
     console.log(req.body);
-    return res.status(http_status_codes_1.StatusCodes.CREATED).send('Não implementado');
+    return res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR).send('Não implementado');
 });
-exports.create = create;
+exports.Update = Update;
