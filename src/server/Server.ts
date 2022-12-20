@@ -1,6 +1,6 @@
 import express from 'express';
 import { router } from './routes';
-import './shared/services/TranslationsYup.js';
+import './shared/services/TranslationsYup';
 interface Teste {
 
 }
