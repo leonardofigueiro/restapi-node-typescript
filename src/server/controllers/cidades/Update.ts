@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
 import { validation } from '../../shared/middlawares';
 import { ICidade } from '../../database/models';
+import { CidadesProvider } from '../../database/providers/cidades';
 
 interface IParamsProps {
   id?: number
@@ -19,10 +20,20 @@ export const updateValitation = validation((getSchema) => ({
 }));
 
 export const Update = async (req: Request<IParamsProps, {}, IBodyProps>, res: Response) => {
-
-  console.log(req.params);
-  console.log(req.body);
-
-
-  return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Não implementado');
+  if(!req.params.id) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: {
+        default: 'O parâmetro "ID" precisa ser informado'
+      }
+    });
+  }
+  const result = CidadesProvider.Update(req.params.id, req.body);
+  if (result instanceof Error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: result.message
+      }
+    });
+  }
+  return res.status(StatusCodes.NO_CONTENT).json(result);
 };
