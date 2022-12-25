@@ -1,0 +1,34 @@
+import { Knex } from 'knex';
+import { ETableNames } from '../ETablenames';
+
+
+export async function up(knex: Knex) {
+  return knex
+    .schema
+    .createTable(ETableNames.pessoa, table => {
+      table.bigIncrements('id').primary().index();
+      table.string('nome').notNullable();
+      table.string('sobrenome').index().notNullable();
+      table.string('email').unique().notNullable();
+      table
+        .bigInteger('cidadeId')
+        .index()
+        .notNullable()
+        .references('id')
+        .inTable(ETableNames.cidade)
+        .onUpdate('CASCADE')
+        .onDelete('RESTRICT');
+      table.comment('Armazena as pessoas do sistema');
+
+    })
+    .then(() => {
+      console.log(`#Created table ${ETableNames.pessoa}`);
+    });
+}
+export async function down(knex: Knex) {
+  return knex.schema.dropTable(ETableNames.pessoa)
+    .then(() => {
+      console.log(`#Droped table ${ETableNames.pessoa}`);
+    });
+}
+

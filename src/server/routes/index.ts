@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import httpStatusCodes from 'http-status-codes';
 
-import { CidadesController } from './../controllers';
+import { CidadesController, PessoasController } from './../controllers';
 
 const router = Router();
 
@@ -14,5 +14,9 @@ router.get('/cidades/:id', CidadesController.getByIdValitation, CidadesControlle
 router.post('/cidades', CidadesController.createValitation, CidadesController.create);
 router.delete('/cidades/:id', CidadesController.deleteValitation, CidadesController.Delete);
 router.put('/cidades/:id', CidadesController.updateValitation, CidadesController.Update);
+
+router.get('/pessoas', PessoasController.getAllValitation, PessoasController.getAll);
+router.post('/pessoas', PessoasController.createValitation, PessoasController.create);
+
 
 export { router };
