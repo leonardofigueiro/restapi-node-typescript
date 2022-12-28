@@ -5,7 +5,6 @@ import { validation } from '../../shared/middlawares';
 import { PessoasProvider } from '../../database/providers/pessoas';
 
 interface IQueryProps {
-  id?: number,
   page?: number,
   limit?: number,
   filter?: string
@@ -16,7 +15,6 @@ export const getAllValitation = validation((getSchema) => ({
     page: yup.number().notRequired().moreThan(0),
     limit: yup.number().notRequired().moreThan(0),
     filter: yup.string().notRequired(),
-    id: yup.number().integer().notRequired().default(0)
 
   })),
 }));

@@ -10,10 +10,12 @@ export const Delete = async (id: number): Promise<void | Error> => {
       .where('id', '=', id)
       .del();
 
-    if (result > 0) return;
-    return new Error('Erro ao apagar o registro');
+    if (result > 0) {
+      return;
+    }else {
+      return new Error('Erro ao apagar o registro');
+    }
   } catch (error) {
-    console.log(error);
     return Error('Erro ao apagar o registro');
   }
 };

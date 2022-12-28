@@ -3,23 +3,26 @@ import { testServer } from '../jest.setup';
 
 
 describe('Teste de listagem por ID', () => {
-  it('Erro na validação dos dados', async () => {
-    const res1 = await testServer
-      .get('/cidades/0');
-    expect(res1.statusCode).toEqual(StatusCodes.BAD_REQUEST);
-    expect(typeof res1).toEqual('object');
-  });
+
   it('Teste de listagem por ID', async () => {
-    await testServer
+    const res1 = await testServer
       .post('/cidades')
       .send({nome: 'Teste'});
-    const res2 = await testServer
-      .get('/cidades/1');
 
-    expect(typeof res2.body).toEqual('object');
-    console.log(res2.body);
-    expect(res2.body[0].nome).toEqual('Teste');
-    
+    expect(res1.statusCode).toEqual(StatusCodes.CREATED);
 
+    const resBuscada = await testServer
+      .get(`/cidades/${res1.body}`)
+      .send();
+
+    expect(resBuscada).toEqual(StatusCodes.OK);
+    expect(resBuscada.body).toHaveProperty('nome');
+  
+  });
+  it('Tenta buscar registro que não existe', async () => {
+    const res1 = await testServer
+      .get('/cidades/9999');
+    expect(res1.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
+    expect(res1.body).toHaveProperty('errors.default');
   });
 });

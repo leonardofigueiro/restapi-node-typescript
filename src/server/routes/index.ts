@@ -17,6 +17,11 @@ router.put('/cidades/:id', CidadesController.updateValitation, CidadesController
 
 router.get('/pessoas', PessoasController.getAllValitation, PessoasController.getAll);
 router.post('/pessoas', PessoasController.createValitation, PessoasController.create);
+router.delete('/pessoas:id', PessoasController.getAllValitation, PessoasController.Delete);
+router.get('pessoas/:id', PessoasController.getAllValitation, PessoasController.getById);
+router.put('pessoas/:id', PessoasController.updateValitation, PessoasController.Update);
+
+
 
 
 export { router };

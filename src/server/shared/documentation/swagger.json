@@ -1,0 +1,135 @@
+{
+  "swagger": "3.0.0",
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de cadastro dos usuários",
+    "version": "1.0.0",
+    "description": "API criada para manipulação de usuários e suas respectivas cidades",
+    "termsOfService": "http://localhost:3333/termsofservice",
+    "contact": {
+      "email": "leonardo.figueiro@yahoo.com.br"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3333",
+      "description": "API de teste"
+    },
+    {
+      "url": "https://rest-api-node-ts-fevjp.ondigitalocean.app",
+      "description": "API de produção"
+    }
+  ],
+  "paths": {
+    "/cidades": {
+      "post": {
+        "sumary": "Cadastro das cidades",
+        "description": "Rota para cadastro das cidades",
+        "tags": ["Cidades"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostCidade"
+              },
+              "examples": {
+                "cidade": {
+                  "value": {
+                    "nome": "Rio de Janeiro"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "500": {
+            "description": "Erro na criação da cidade"
+          },
+          "400": {
+            "description": "Bad Request. Necessário informar o campo solicitado"
+          },
+          "201": {
+            "description": "Cidade cadastrada com sucesso",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "id": "number"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "sumary": "Listagem das cidades",
+        "description": "Rota para listagem das cidades. Pode ser incrementada com limit, filter e page",
+        "tags": ["Cidades"],
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filtro para retorno dos valores específicos",
+            "type": "string",
+            "collectionFormat": "input"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Página de resultados da busca",
+            "type": "number",
+            "collectionFormat": "input"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Limite de resultados por página - Padrão: 10",
+            "type": "number",
+            "collectionFormat": "input"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Erro no filtro, página ou limite (não podem ser menores que 0"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "array",
+                  "items": {
+                    "$ref":"#/components/schemas/GetAllCidade"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PostCidade": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          }
+        }
+      },
+      "GetAllCidade": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type":"number"
+          },
+          "nome": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
