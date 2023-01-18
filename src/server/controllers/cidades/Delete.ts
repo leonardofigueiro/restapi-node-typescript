@@ -23,7 +23,7 @@ export const Delete = async (req: Request<IParamsProps>, res: Response) => {
       }
     });
   }
-  const result = CidadesProvider.Delete(req.params.id);
+  const result = await CidadesProvider.Delete(req.params.id);
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {

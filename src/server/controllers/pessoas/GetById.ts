@@ -16,6 +16,7 @@ export const getByIdValitation = validation((getSchema) => ({
 }));
 
 export const getById = async (req: Request<IParamsProps>, res: Response) => {
+  console.log(req.params.id);
   if(!req.params.id) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       errors: {

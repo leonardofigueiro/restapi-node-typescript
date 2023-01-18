@@ -11,7 +11,7 @@ const startServer = () => {
 };
 
 if (process.env.IS_LOCALHOST !== 'true') {
-  
+  console.log('Rodando as migrations');
   Knex.migrate
     .latest()
     .then(() => {

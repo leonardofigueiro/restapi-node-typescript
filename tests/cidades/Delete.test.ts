@@ -27,7 +27,7 @@ describe('Teste de exclusão', () => {
       .delete('/cidades/9999')
       .send();
 
-    expect(res1.statusCode).toEqual(StatusCodes.NO_CONTENT);
+    expect(res1.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
     expect(res1.body).toHaveProperty('errors.default');
   });
 

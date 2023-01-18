@@ -30,7 +30,7 @@ export const Update = async (req: Request<IParamsProps, {}, IBodyProps>, res: Re
       }
     });
   }
-  const result = PessoasProvider.Update(req.params.id, req.body);
+  const result = await PessoasProvider.Update(req.params.id, req.body);
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {

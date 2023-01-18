@@ -2,17 +2,34 @@ import { StatusCodes } from 'http-status-codes';
 import { testServer } from '../jest.setup';
 
 
-describe('Teste de listagem por ID', () => {
+describe('Pessoas - GetById', () => {
+
+  let cidadeId: number | undefined = undefined;
+
+  beforeAll(async () => {
+    const resCidade = await testServer
+      .post('/cidades')
+      .send({nome: 'Tangará da Serra'});
+
+    cidadeId = resCidade.body;
+
+  });
+
 
   it('Teste de listagem por ID', async () => {
+    
     const res1 = await testServer
-      .post('/cidades')
-      .send({nome: 'Teste'});
-
+      .post('/pessoas')
+      .send({
+        nome: 'Teste',
+        sobrenome: 'Testado',
+        email: 'testegetbyid@teste.com',
+        cidadeId
+      });
     expect(res1.statusCode).toEqual(StatusCodes.CREATED);
 
     const resBuscada = await testServer
-      .get(`/cidades/${res1.body}`)
+      .get(`/pessoas/${res1.body}`)
       .send();
 
     expect(resBuscada.statusCode).toEqual(StatusCodes.OK);
@@ -22,7 +39,7 @@ describe('Teste de listagem por ID', () => {
 
   it('Tenta buscar registro que não existe', async () => {
     const res1 = await testServer
-      .get('/cidades/9999');
+      .get('/pessoas/9999');
     expect(res1.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
     expect(res1.body).toHaveProperty('errors.default');
   });

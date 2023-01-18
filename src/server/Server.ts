@@ -10,7 +10,7 @@ interface Teste {
 
 const server = express();
 
-server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+//server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 
 server.use(express.json());

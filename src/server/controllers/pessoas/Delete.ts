@@ -3,6 +3,8 @@ import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
 import { validation } from '../../shared/middlawares';
 import { PessoasProvider } from '../../database/providers/pessoas';
+
+
 interface IParamsProps {
   id?: number
 }
@@ -22,7 +24,8 @@ export const Delete = async (req: Request<IParamsProps>, res: Response) => {
       }
     });
   }
-  const result = PessoasProvider.Delete(req.params.id);
+
+  const result = await PessoasProvider.Delete(req.params.id);
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {
